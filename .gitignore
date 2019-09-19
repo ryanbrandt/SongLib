@@ -2,6 +2,7 @@
 .settings
 .vscode
 .project
+.classpath
 
 # compiled
-./target
+target/
