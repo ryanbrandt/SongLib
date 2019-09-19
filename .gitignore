@@ -1,0 +1,7 @@
+# config
+.settings
+.vscode
+.project
+
+# compiled
+./target
