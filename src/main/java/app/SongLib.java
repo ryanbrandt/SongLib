@@ -8,9 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-/**
- * @author Ryan Brandt, Ian Barry
- */
 public class SongLib extends Application {
 
     @Override

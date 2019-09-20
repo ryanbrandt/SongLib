@@ -5,9 +5,8 @@
 <?import javafx.scene.text.* ?>
 <?import javafx.geometry.* ?>
 
-<!-- @author Ryan Brandt -->
 <GridPane xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SongLibController" vgap="10" hgap="10">
-    <Text fx:id="alert" text="Please include a Song Title and Artist Name" visible="false" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+    <Text fx:id="alert" text="Please include a Song Title and Artist Name" visible="false" GridPane.columnIndex="0" GridPane.rowIndex="3" />
     <!-- Add Inputs -->
     <TextField fx:id="song" promptText="Song Title" GridPane.columnIndex="0" GridPane.rowIndex="1" />
     <TextField fx:id="artist" promptText="Artist" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -27,9 +26,7 @@
         <items></items>
     </TableView>
     <!-- //Table -->
-    <!-- Style -->
     <padding>
         <Insets top="10" right="10" bottom="10" left="10" />
     </padding>
-    <!-- //Style -->
 </GridPane>
