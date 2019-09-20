@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<?import javafx.scene.layout.* ?>
+<?import javafx.scene.control.* ?>
+<?import javafx.scene.text.* ?>
+<?import javafx.geometry.* ?>
+
+<!-- @author Ryan Brandt -->
+<GridPane xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SongLibController" vgap="10" hgap="10">
+    <Text fx:id="alert" text="Please include a Song Title and Artist Name" visible="false" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+    <!-- Add Inputs -->
+    <TextField fx:id="song" promptText="Song Title" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <TextField fx:id="artist" promptText="Artist" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <TextField fx:id="album" promptText="Album" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+    <TextField fx:id="year" promptText="Year" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+    <Button onAction="#addSong" text="Add Song" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+    <!-- //Add Inputs -->
+    <!-- Table -->
+    <TableView GridPane.columnSpan="2">
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+        </columnResizePolicy>
+        <columns>
+            <TableColumn fx:id="songCol" text="Song" />
+            <TableColumn fx:id="artistCol" text="Artist" />
+        </columns>
+        <items></items>
+    </TableView>
+    <!-- //Table -->
+    <!-- Style -->
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10" />
+    </padding>
+    <!-- //Style -->
+</GridPane>
