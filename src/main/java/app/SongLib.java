@@ -8,16 +8,17 @@ import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * @author Ryan Brandt
+ */
 public class SongLib extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../view/songLib.fxml"));
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/songLib.fxml"));
         try {
             GridPane root = (GridPane) loader.load();
-            Scene scene = new Scene(root, 800, 500);
+            Scene scene = new Scene(root, 800, 600);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Song Library");
             primaryStage.show();

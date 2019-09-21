@@ -1,5 +1,8 @@
 package types;
 
+/**
+ * @author Ryan Brandt
+ */
 public class Song {
     public String song, artist, album;
     public int year;
@@ -15,13 +18,19 @@ public class Song {
         this(song, artist, null, -1);
     }
 
-    public String toString() {
-        return this.song + "," + this.artist + "," + this.album + "," + Integer.toString(this.year) + ";";
+    /**
+     * Utilities
+     */
+    public String getSong() {
+        return this.song;
     }
 
-    public String[] toArray() {
-        return new String[] { this.song, this.artist, this.album != null ? this.album : "",
-                this.year > -1 ? Integer.toString(this.year) : "" };
+    public String getArtist() {
+        return this.artist;
+    }
+
+    public String toString() {
+        return this.song + "," + this.artist + "," + this.album + "," + Integer.toString(this.year);
     }
 
 }

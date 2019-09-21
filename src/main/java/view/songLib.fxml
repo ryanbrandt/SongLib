@@ -5,8 +5,9 @@
 <?import javafx.scene.text.* ?>
 <?import javafx.geometry.* ?>
 
+<!-- @author Ryan Brandt -->
 <GridPane xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SongLibController" vgap="10" hgap="10">
-    <Text fx:id="alert" text="Please include a Song Title and Artist Name" visible="false" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+    <Text fx:id="alert" visible="false" GridPane.columnIndex="0" GridPane.rowIndex="3" />
     <!-- Add Inputs -->
     <TextField fx:id="song" promptText="Song Title" GridPane.columnIndex="0" GridPane.rowIndex="1" />
     <TextField fx:id="artist" promptText="Artist" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -15,7 +16,7 @@
     <Button onAction="#addSong" text="Add Song" GridPane.columnIndex="0" GridPane.rowIndex="2" />
     <!-- //Add Inputs -->
     <!-- Table -->
-    <TableView GridPane.columnSpan="2">
+    <TableView fx:id="table" GridPane.columnSpan="2">
         <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
         </columnResizePolicy>
@@ -23,7 +24,6 @@
             <TableColumn fx:id="songCol" text="Song" />
             <TableColumn fx:id="artistCol" text="Artist" />
         </columns>
-        <items></items>
     </TableView>
     <!-- //Table -->
     <padding>
