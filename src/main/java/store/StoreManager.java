@@ -31,7 +31,7 @@ public class StoreManager {
         }
     }
 
-    public void update(Song song) {
+    public void update(Song oldSong, Song newSong) {
         // TODO find and update a song
 		//test
     }
