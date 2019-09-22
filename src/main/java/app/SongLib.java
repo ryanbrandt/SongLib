@@ -20,6 +20,7 @@ public class SongLib extends Application {
             GridPane root = (GridPane) loader.load();
             Scene scene = new Scene(root, 800, 600);
             primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
             primaryStage.setTitle("Song Library");
             primaryStage.show();
         } catch (IOException e) {

@@ -57,41 +57,55 @@ public class SongLibController {
         alert.setVisible(false);
         final String songVal = song.getText().trim();
         final String artistVal = artist.getText().trim();
-
-        if (songVal.isEmpty() || artistVal.isEmpty()) {
-            this.showAlert("required");
-            return;
-        }
         final String yearVal = year.getText().trim();
         final String albumVal = album.getText().trim();
 
-        if(!yearVal.isEmpty() && !isNum(yearVal)) {
-            this.showAlert("year");
-            return;
-        }
-
         Song newSong = new Song(songVal, artistVal);
 
-        if (this.storeManager.isUnique(newSong)) {
-            if (!albumVal.isEmpty()) newSong.album = albumVal;
-            if (!yearVal.isEmpty()) newSong.year = Integer.parseInt(yearVal);
-
+        if(this.isValidSong(newSong, true, albumVal, yearVal)) {
             this.storeManager.put(newSong);
-            this.showAlert("success");
+            this.showAlert("add success");
             song.clear(); artist.clear(); album.clear(); year.clear();
             this.loadSongs();
             table.getSelectionModel().select(newSong);
-        } else {
-            this.showAlert("unique");
         }
     }
 
     public void removeSong(ActionEvent e) {
-        // TODO call delete and reload
+        Song toRemove = table.getSelectionModel().getSelectedItem();
+        final int removedIndex = table.getSelectionModel().getSelectedIndex();
+
+        this.storeManager.delete(toRemove);
+        this.loadSongs();
+        this.showAlert("delete success");
+        
+        final int numRows = table.getItems().size();
+        if(numRows > 0) {
+            final int nextIndex = removedIndex != numRows ? removedIndex : removedIndex - 1;
+            table.getSelectionModel().select(nextIndex);
+        } else {
+            songEdit.clear(); artistEdit.clear(); albumEdit.clear(); yearEdit.clear();
+        }
     }
 
     public void editSong(ActionEvent e) {
-        // TODO call update and reload
+        Song origSong = table.getSelectionModel().getSelectedItem();
+        final String songVal = songEdit.getText().trim();
+        final String artistVal = artistEdit.getText().trim();
+        final String albumVal = albumEdit.getText().trim();
+        final String yearVal = yearEdit.getText().trim();
+
+        Song editedSong = new Song(songVal, artistVal);
+        final Boolean shouldCheckUnique = !origSong.song.equalsIgnoreCase(editedSong.song) && !origSong.artist.equalsIgnoreCase(editedSong.artist);
+
+        if(this.isValidSong(editedSong, shouldCheckUnique, albumVal, yearVal)) {
+            this.storeManager.update(origSong, editedSong);
+            this.showAlert("edit success");
+            songEdit.clear(); artistEdit.clear(); albumEdit.clear(); yearEdit.clear();
+            this.loadSongs();
+            table.getSelectionModel().select(editedSong);
+        }
+
     }
 
     /**
@@ -111,10 +125,33 @@ public class SongLibController {
         return true;
     }
 
+    private Boolean isValidSong(Song song, Boolean unique, String albumVal, String yearVal) {
+        if(song.song.isEmpty() || song.artist.isEmpty()) {
+            this.showAlert("required");
+            return false;
+        }
+        if(unique && !this.storeManager.isUnique(song)) {
+            this.showAlert("unique");
+            return false;
+        }
+    
+        if(!albumVal.isEmpty()) song.album = albumVal;
+        if(!yearVal.isEmpty()){
+            if(isNum(yearVal)) {
+                song.year = Integer.parseInt(yearVal);
+            } else {
+                this.showAlert("year");
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void showSelected(Song selected) {
+        albumEdit.clear(); yearEdit.clear();
         songEdit.setText(selected.song);
         artistEdit.setText(selected.artist);
-        if(!selected.album.equals("null")) albumEdit.setText(selected.album);
+        if(selected.album != null && !selected.album.equals("null")) albumEdit.setText(selected.album);
         if(selected.year != -1) yearEdit.setText(Integer.toString(selected.year));
     }
 
@@ -128,8 +165,16 @@ public class SongLibController {
             alert.setText("Song Title and Artist Name must form a unique pair!");
             alert.setFill(Color.RED);
             break;
-        case "success":
+        case "add success":
             alert.setText("Song added!");
+            alert.setFill(Color.GREEN);
+            break;
+        case "edit success":
+            alert.setText("Song edited!");
+            alert.setFill(Color.GREEN);
+            break;
+        case "delete success":
+            alert.setText("Song deleted!");
             alert.setFill(Color.GREEN);
             break;
         case "year":

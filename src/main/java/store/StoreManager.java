@@ -9,6 +9,7 @@ import types.Song;
 
 /**
  * @author Ryan Brandt
+ * @author Ian Barry
  */
 public class StoreManager {
     private BufferedWriter writer;
@@ -22,8 +23,7 @@ public class StoreManager {
     public void put(Song song) {
         try {
             this.writer = new BufferedWriter(new FileWriter(this.store, true));
-            this.writer.write(song.toString());
-            this.writer.append('\n');
+            this.writer.write(song.toString() + "\n");
         } catch (IOException e) {
             System.out.println(e);
         } finally {
@@ -32,91 +32,37 @@ public class StoreManager {
     }
 
     public void update(Song oldSong, Song newSong) {
-        
-
-        File temp = new File("src/main/java/store/temp.txt");
-
-        try {
-
-            this.writer = new BufferedWriter(new FileWriter(temp, false));
-            this.reader = new BufferedReader(new FileReader(store));
-
-            String storeLine;
-            String[] storeLineArr;
-
-            //make edit in temp
-            while((storeLine = reader.readLine()) != null){
-                storeLineArr = storeLine.split(",");
-
-                String song  =  storeLineArr[0];
-                String artist  =  storeLineArr[1];
-
-                if(song.equalsIgnoreCase(oldSong.getSong()) && artist.equalsIgnoreCase(oldSong.getArtist())){
-                    storeLine = newSong.toString();
-                }
-                this.writer.write(storeLine+"\n");
-            }
-
-            this.close(true);
-            this.close(false);
-
-
-            //copy temp to store
-            this.writer = new BufferedWriter(new FileWriter(store, false));
-            this.reader = new BufferedReader(new FileReader(temp));
-
-            String copyLine;
-
-            while((copyLine = reader.readLine()) != null){
-                this.writer.write(copyLine+"\n");
-            }
-
-        } catch(IOException e ){
-            System.out.println(e);
-        } finally {
-            this.close(true);
-            this.close(false);
-
-            temp.delete();
-        }
+        this.delete(oldSong);
+        this.put(newSong);
     }
 
     public void delete(Song song) {
         File temp = new File("src/main/java/store/temp.txt");
 
         try {
-
             this.writer = new BufferedWriter(new FileWriter(temp, false));
-            this.reader = new BufferedReader(new FileReader(store));
-
+            this.reader = new BufferedReader(new FileReader(this.store));
             String storeLine;
             String[] storeLineArr;
 
             //copy all but the song to be deleted over to temp
-            while((storeLine = reader.readLine()) != null){
+            while((storeLine = this.reader.readLine()) != null){
                 storeLineArr = storeLine.split(",");
+                String curSong = storeLineArr[0];
+                String curArtist = storeLineArr[1];
 
-                String songCheck  =  storeLineArr[0];
-                String artist  =  storeLineArr[1];
-
-                if(songCheck.equalsIgnoreCase(song.getSong()) && artist.equalsIgnoreCase(song.getArtist())){
-
-                } else {
+                if(!curSong.equalsIgnoreCase(song.getSong()) && !curArtist.equalsIgnoreCase(song.getArtist())){
                     this.writer.write(storeLine + "\n");
                 }
             }
-
             this.close(true);
             this.close(false);
 
-
             //copy temp to store
-            this.writer = new BufferedWriter(new FileWriter(store, false));
+            this.writer = new BufferedWriter(new FileWriter(this.store, false));
             this.reader = new BufferedReader(new FileReader(temp));
-
             String copyLine;
-
-            while((copyLine = reader.readLine()) != null){
+            while((copyLine = this.reader.readLine()) != null){
                 this.writer.write(copyLine+"\n");
             }
 
@@ -125,7 +71,6 @@ public class StoreManager {
         } finally {
             this.close(true);
             this.close(false);
-            
             temp.delete();
         }
     }
@@ -156,7 +101,7 @@ public class StoreManager {
             String[] storeLineArr;
             while ((storeLine = this.reader.readLine()) != null) {
                 storeLineArr = storeLine.split(",");
-                if (storeLineArr[0].equals(song.song) && storeLineArr[1].equals(song.artist)) {
+                if (storeLineArr[0].equalsIgnoreCase(song.song) && storeLineArr[1].equalsIgnoreCase(song.artist)) {
                     return false;
                 }
             }
