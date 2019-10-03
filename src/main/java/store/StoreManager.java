@@ -45,28 +45,28 @@ public class StoreManager {
             String storeLine;
             String[] storeLineArr;
 
-            //copy all but the song to be deleted over to temp
-            while((storeLine = this.reader.readLine()) != null){
+            // copy all but the song to be deleted over to temp
+            while ((storeLine = this.reader.readLine()) != null) {
                 storeLineArr = storeLine.split(",");
                 String curSong = storeLineArr[0];
                 String curArtist = storeLineArr[1];
 
-                if(!curSong.equalsIgnoreCase(song.getSong()) && !curArtist.equalsIgnoreCase(song.getArtist())){
+                if (!(curSong.equalsIgnoreCase(song.getSong()) && curArtist.equalsIgnoreCase(song.getArtist()))) {
                     this.writer.write(storeLine + "\n");
                 }
             }
             this.close(true);
             this.close(false);
 
-            //copy temp to store
+            // copy temp to store
             this.writer = new BufferedWriter(new FileWriter(this.store, false));
             this.reader = new BufferedReader(new FileReader(temp));
             String copyLine;
-            while((copyLine = this.reader.readLine()) != null){
-                this.writer.write(copyLine+"\n");
+            while ((copyLine = this.reader.readLine()) != null) {
+                this.writer.write(copyLine + "\n");
             }
 
-        } catch(IOException e ){
+        } catch (IOException e) {
             System.out.println(e);
         } finally {
             this.close(true);

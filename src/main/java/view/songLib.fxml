@@ -5,7 +5,7 @@
 <?import javafx.scene.text.* ?>
 <?import javafx.geometry.* ?>
 
-<!-- @author Ryan Brandt -->
+<!-- @author Ryan Brandt, Ian Barry -->
 <GridPane xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SongLibController" vgap="15" hgap="15">
     <Text fx:id="alert" visible="false" GridPane.columnSpan="2" GridPane.rowIndex="7" />
     <!-- Table -->
@@ -24,8 +24,8 @@
     <TextField fx:id="artistEdit" promptText="Artist" GridPane.columnIndex="1" GridPane.rowIndex="2" />
     <TextField fx:id="albumEdit" PromptText="Album" GridPane.columnIndex="2" GridPane.rowIndex="2" />
     <TextField fx:id="yearEdit" promptText="Year" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-    <Button onAction="#editSong" text="Edit Song" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-    <Button onAction="#removeSong" text="Delete Song" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+    <Button fx:id="editSubmit" onAction="#editSong" text="Edit Song" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+    <Button fx:id="deleteSubmit" onAction="#removeSong" text="Delete Song" GridPane.columnIndex="1" GridPane.rowIndex="3" />
     <!-- //Edit Inputs -->
     <!-- Add Inputs -->
     <TextField fx:id="song" promptText="Song Title" GridPane.columnIndex="0" GridPane.rowIndex="5" />

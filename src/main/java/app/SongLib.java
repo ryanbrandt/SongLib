@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 /**
  * @author Ryan Brandt
+ * @author Ian Barry
  */
 public class SongLib extends Application {
 

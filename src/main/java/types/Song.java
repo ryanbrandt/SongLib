@@ -2,6 +2,7 @@ package types;
 
 /**
  * @author Ryan Brandt
+ * @author Ian Barry
  */
 public class Song {
     public String song, artist, album;
